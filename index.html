@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>🎰 জয়া ভাইয়ের স্লট গেম</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
   background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
@@ -11,51 +12,53 @@ body {
 }
 .machine {
   background: radial-gradient(circle,#1e293b,#0f172a);
-  border:8px solid #facc15; border-radius:25px;
-  padding:25px; box-shadow:0 0 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(250,204,21,0.4);
-  width:520px; text-align:center;
+  border:0.8vw solid #facc15; border-radius:5vw;
+  padding:5vw; 
+  box-shadow:0 0 5vw rgba(0,0,0,0.8), inset 0 0 2vw rgba(250,204,21,0.4);
+  width:90vw;      
+  max-width:520px;
+  text-align:center;
 }
-/* Headline - জলজলে এনিমেশন */
 h1 {
-  margin:0 0 10px; font-size:28px; font-weight:bold;
+  margin:0 0 3vw; font-size:6vw; font-weight:bold;
   background: linear-gradient(90deg,#00f0ff,#00bfff,#0077ff,#00f0ff);
   background-size: 200% auto;
   -webkit-background-clip: text; color: transparent;
   animation: shine 2s linear infinite;
 }
-@keyframes shine {
-  0% { background-position: 0 0; }
-  100% { background-position: 200% 0; }
-}
+@keyframes shine { 0% { background-position: 0 0; } 100% { background-position: 200% 0; } }
 
-.balance { margin:10px 0; font-size:18px; }
-.reels { display:flex; justify-content:center; gap:20px; margin:20px 0; }
+.balance { margin:3vw 0; font-size:4vw; }
+.reels { display:flex; justify-content:center; gap:5vw; margin:5vw 0; }
 .reel {
-  width:120px; height:130px; background: #111; border-radius:14px;
-  box-shadow: inset 0 -6px 12px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.3);
+  width:25vw; max-width:120px;
+  height:25vw; max-height:130px;
+  background: #111; border-radius:3vw;
+  box-shadow: inset 0 -0.6vw 1.2vw rgba(0,0,0,0.8), 0 0 1vw rgba(255,255,255,0.3);
   display:flex; align-items:center; justify-content:center; transition:transform 0.2s;
-  font-size:60px; backface-visibility:hidden;
+  font-size:10vw; backface-visibility:hidden;
 }
-.reel img { width:90px; height:90px; border-radius:12px; object-fit:cover; }
+.reel img { width:90%; height:90%; border-radius:2vw; object-fit:cover; }
 .reel.win { animation: glow 0.7s infinite alternate, shake 0.5s ease; }
-@keyframes glow { from {box-shadow:0 0 10px #facc15,inset 0 0 10px #facc15;} to {box-shadow:0 0 25px #facc15,inset 0 0 20px #facc15;} }
+@keyframes glow { from {box-shadow:0 0 1vw #facc15,inset 0 0 1vw #facc15;} to {box-shadow:0 0 2.5vw #facc15,inset 0 0 2vw #facc15;} }
 @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
 
-.controls, .banking { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:10px; }
+.controls, .banking { display:flex; justify-content:center; gap:3vw; flex-wrap:wrap; margin-top:3vw; }
 button {
   background:#facc15; border:none; color:#111; font-weight:700;
-  padding:8px 14px; border-radius:12px; cursor:pointer; transition:0.2s;
-  display:flex; align-items:center; justify-content:center; gap:5px;
+  padding:2vw 4vw; border-radius:2vw; cursor:pointer; transition:0.2s;
+  display:flex; align-items:center; justify-content:center; gap:1vw;
+  font-size:4vw;
 }
 button:hover { transform:scale(1.07); background:#fde047; }
 button:disabled { opacity:0.5; cursor:not-allowed; }
-input[type=number]{ width:80px; padding:6px; border-radius:8px; border:none; text-align:center; }
-.msg { min-height:30px; margin-top:15px; font-size:18px; font-weight:bold; transition:0.3s; }
-.bank-img { height:18px; vertical-align:middle; animation: pulse 1.2s infinite alternate; }
+input[type=number]{ width:20vw; padding:1vw; border-radius:2vw; border:none; text-align:center; font-size:4vw; }
+.msg { min-height:6vw; margin-top:3vw; font-size:4vw; font-weight:bold; transition:0.3s; }
+.bank-img { height:4vw; vertical-align:middle; animation: pulse 1.2s infinite alternate; }
 @keyframes pulse { from {transform: scale(1);} to {transform: scale(1.2);} }
 
-.stats { margin-top:15px; font-size:16px; text-align:center; }
-.stats p { margin:4px 0; }
+.stats { margin-top:3vw; font-size:3.5vw; text-align:center; }
+.stats p { margin:2vw 0; }
 </style>
 </head>
 <body>
@@ -97,16 +100,11 @@ input[type=number]{ width:80px; padding:6px; border-radius:8px; border:none; tex
 
 <script>
 const symbols = [
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic1.jpg'>`,
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic2.png'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/1756997305828.Screenshot_20250904-204533.png'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Messenger_creation_6E151551-F15E-40BF-AE39-0793E0583A91.jpeg'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Picsart_25-09-17_15-51-29-549.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Picsart_25-10-02_00-49-26-393.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Picsart_25-10-02_00-50-30-848.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/condom1.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/confom2.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/muzibcondom.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic1.jpg'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic2.png'>`
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Picsart_25-09-17_15-51-29-549.png'>`
 ];
 
 const reels = [document.getElementById("r0"),document.getElementById("r1"),document.getElementById("r2")];
@@ -126,7 +124,6 @@ const totalLoseEl = document.getElementById("totalLose");
 let balance = 1000, spinning = false;
 let totalSpins = 0, totalWin = 0, totalLose = 0;
 
-// Sounds
 const spinSound = new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/spin%20sound.mp3");
 spinSound.volume = 0.5;
 const winSound = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"); winSound.volume=0.6;
@@ -155,14 +152,13 @@ function spin(){
   spinning=true; updateUI(); msgEl.textContent="স্পিন হচ্ছে..."; balance-=bet; updateUI();
   totalSpins++; totalSpinsEl.textContent = totalSpins;
 
-  // Play spin sound
   spinSound.currentTime = 0;
   spinSound.play();
 
   const final=[randomIndex(),randomIndex(),randomIndex()];
   reels.forEach(r=>r.classList.remove("win"));
 
-  let i=0, total=50; // স্পিনের সময় বৃদ্ধি
+  let i=0, total=50;
   let interval=setInterval(()=>{
     reels.forEach(r=>{ r.innerHTML = symbols[Math.floor(Math.random()*symbols.length)]; });
     i++;
@@ -170,9 +166,7 @@ function spin(){
       clearInterval(interval);
       reels.forEach((r,idx)=>r.innerHTML=symbols[final[idx]]);
 
-      // Stop spin sound
-      spinSound.pause();
-      spinSound.currentTime = 0;
+      spinSound.pause(); spinSound.currentTime = 0;
 
       const payout = evaluate([symbols[final[0]],symbols[final[1]],symbols[final[2]]],bet);
       if(payout>0){ 
@@ -191,7 +185,6 @@ function spin(){
   },80);
 }
 
-// Buttons
 spinBtn.onclick=spin;
 maxBtn.onclick=()=>{ betInput.value=balance; updateUI(); };
 resetBtn.onclick=()=>{
@@ -201,7 +194,6 @@ resetBtn.onclick=()=>{
   reels.forEach(r=>r.innerHTML=""); updateUI();
 }
 
-// Deposit & Withdraw
 depositBtn.onclick=()=>{
   let amt=Number(amountInput.value)||0;
   if(amt<=0){ msgEl.textContent="❌ সঠিক পরিমাণ দিন"; return; }
