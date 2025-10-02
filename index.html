@@ -102,6 +102,9 @@ input[type=number]{ width:20vw; padding:1vw; border-radius:2vw; border:none; tex
 const symbols = [
   `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic1.jpg'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic2.png'>`,
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/condom1.png'>`,
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/confom2.png'>`,
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/condom3.png'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/1756997305828.Screenshot_20250904-204533.png'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Messenger_creation_6E151551-F15E-40BF-AE39-0793E0583A91.jpeg'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Picsart_25-09-17_15-51-29-549.png'>`
@@ -152,9 +155,7 @@ function spin(){
   spinning=true; updateUI(); msgEl.textContent="স্পিন হচ্ছে..."; balance-=bet; updateUI();
   totalSpins++; totalSpinsEl.textContent = totalSpins;
 
-  spinSound.currentTime = 0;
-  spinSound.play();
-
+  spinSound.currentTime = 0; spinSound.play();
   const final=[randomIndex(),randomIndex(),randomIndex()];
   reels.forEach(r=>r.classList.remove("win"));
 
@@ -165,9 +166,7 @@ function spin(){
     if(i>total){
       clearInterval(interval);
       reels.forEach((r,idx)=>r.innerHTML=symbols[final[idx]]);
-
       spinSound.pause(); spinSound.currentTime = 0;
-
       const payout = evaluate([symbols[final[0]],symbols[final[1]],symbols[final[2]]],bet);
       if(payout>0){ 
         balance+=payout; totalWin+=payout;
