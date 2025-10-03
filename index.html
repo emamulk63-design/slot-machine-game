@@ -5,6 +5,7 @@
 <title>🎰 জয়া ভাইয়ের স্লট গেম</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+/* ---------- Body & Machine ---------- */
 body {
   background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   height:100vh; margin:0; display:flex; align-items:center; justify-content:center;
@@ -15,9 +16,7 @@ body {
   border:0.8vw solid #facc15; border-radius:5vw;
   padding:5vw; 
   box-shadow:0 0 5vw rgba(0,0,0,0.8), inset 0 0 2vw rgba(250,204,21,0.4);
-  width:90vw;      
-  max-width:520px;
-  text-align:center;
+  width:90vw; max-width:520px; text-align:center;
 }
 h1 {
   margin:0 0 3vw; font-size:6vw; font-weight:bold;
@@ -33,7 +32,7 @@ h1 {
 .reel {
   width:25vw; max-width:120px;
   height:25vw; max-height:130px;
-  background: #111; border-radius:3vw;
+  background:#111; border-radius:3vw;
   box-shadow: inset 0 -0.6vw 1.2vw rgba(0,0,0,0.8), 0 0 1vw rgba(255,255,255,0.3);
   display:flex; align-items:center; justify-content:center; transition:transform 0.2s;
   font-size:10vw; backface-visibility:hidden;
@@ -43,22 +42,79 @@ h1 {
 @keyframes glow { from {box-shadow:0 0 1vw #facc15,inset 0 0 1vw #facc15;} to {box-shadow:0 0 2.5vw #facc15,inset 0 0 2vw #facc15;} }
 @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
 
+/* ---------- Controls & Buttons ---------- */
 .controls, .banking { display:flex; justify-content:center; gap:3vw; flex-wrap:wrap; margin-top:3vw; }
 button {
-  background:#facc15; border:none; color:#111; font-weight:700;
-  padding:2vw 4vw; border-radius:2vw; cursor:pointer; transition:0.2s;
+  background: linear-gradient(90deg,#facc15,#fde047);
+  border:none; color:#111; font-weight:700;
+  padding:2vw 4vw; border-radius:2vw; cursor:pointer; transition:0.3s;
   display:flex; align-items:center; justify-content:center; gap:1vw;
   font-size:4vw;
 }
-button:hover { transform:scale(1.07); background:#fde047; }
+button:hover { transform:scale(1.07); background: linear-gradient(90deg,#fde047,#facc15); }
 button:disabled { opacity:0.5; cursor:not-allowed; }
-input[type=number]{ width:20vw; padding:1vw; border-radius:2vw; border:none; text-align:center; font-size:4vw; }
+
+input[type=number], input[type=text]{
+  width:80%; padding:1vw; border-radius:1vw; border:none; text-align:center; font-size:4vw; margin:1vw 0; 
+  background: rgba(255,255,255,0.1); color:#fff; transition:0.3s;
+  backdrop-filter: blur(5px);
+}
+input[type=number]:focus, input[type=text]:focus{
+  outline:none; background: rgba(250,204,21,0.2); box-shadow: 0 0 12px #facc15;
+}
+
 .msg { min-height:6vw; margin-top:3vw; font-size:4vw; font-weight:bold; transition:0.3s; }
-.bank-img { height:4vw; vertical-align:middle; animation: pulse 1.2s infinite alternate; }
+
+/* ---------- Bank Logo ---------- */
+.bank-img {
+  height:6vw; 
+  vertical-align:middle; 
+  animation: pulse 1.2s infinite alternate; 
+  opacity: 1;
+  filter: brightness(1.8) drop-shadow(0 0 8px #facc15);
+  border-radius: 10%;
+}
 @keyframes pulse { from {transform: scale(1);} to {transform: scale(1.2);} }
 
+/* ---------- Stats ---------- */
 .stats { margin-top:3vw; font-size:3.5vw; text-align:center; }
 .stats p { margin:2vw 0; }
+
+/* ---------- Modal Styles ---------- */
+.modal {
+  display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+  align-items:center; justify-content:center; animation: fadeIn 0.5s forwards;
+}
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+.modal-content {
+  background: rgba(30,41,59,0.85);
+  border-radius:20px; padding:25px;
+  width:90%; max-width:420px; text-align:center; color:#fff;
+  border:2px solid #facc15;
+  box-shadow:0 0 20px rgba(250,204,21,0.7),0 0 40px rgba(0,0,0,0.5);
+  transform: translateY(-50px); opacity:0;
+  transition: all 0.5s ease;
+  backdrop-filter: blur(10px);
+}
+.modal.show .modal-content { opacity:1; transform: translateY(0); }
+
+.close { float:right; font-size:28px; cursor:pointer; color:#facc15; }
+
+.modal-header { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:1.5vw; }
+.modal-header img { height:6vw; filter: brightness(1.8) drop-shadow(0 0 8px #facc15); border-radius:10%; animation: pulse 1.2s infinite alternate; }
+.modal-header span { font-size:5vw; font-weight:bold; color:#facc15; }
+
+.modal button { width:60%; margin-top:1vw; font-size:4vw; }
+
+/* Deposit send money row */
+.send-money { display:flex; align-items:center; justify-content:center; gap:10px; margin:1vw 0; font-size:4vw; color:#fff; }
+.send-money button { padding:5px 10px; font-size:3.5vw; background:#facc15; border:none; border-radius:8px; cursor:pointer; transition:0.3s; }
+.send-money button:hover { background:#fde047; }
+
+/* Animations */
+@keyframes slideFadeIn { from {opacity:0; transform: translateY(-50px);} to {opacity:1; transform: translateY(0);} }
 </style>
 </head>
 <body>
@@ -80,12 +136,11 @@ input[type=number]{ width:20vw; padding:1vw; border-radius:2vw; border:none; tex
 </div>
 
 <div class="banking">
-  <input id="amount" type="number" placeholder="টাকা" min="1">
   <button id="depositBtn">
-    <img src="https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/IMG_20251002_011530_131.png?raw=true" class="bank-img"> Deposit
+    <img src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png" class="bank-img"> Deposit
   </button>
   <button id="withdrawBtn">
-    <img src="https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/IMG_20251002_011530_131.png?raw=true" class="bank-img"> Withdraw
+    <img src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png" class="bank-img"> Withdraw
   </button>
 </div>
 
@@ -98,117 +153,146 @@ input[type=number]{ width:20vw; padding:1vw; border-radius:2vw; border:none; tex
 </div>
 </div>
 
+<!-- Deposit Modal -->
+<div id="depositModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('depositModal')">&times;</span>
+    <div class="modal-header">
+      <img src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png">
+      <span>Deposit</span>
+    </div>
+    <div class="send-money">
+      <span>📱 Send Money to:</span>
+      <b id="bkashNumber" style="color:red;">01818781145</b>
+      <button onclick="copyBkash()">📋 Copy</button>
+    </div>
+    <label>Amount:</label>
+    <input type="number" id="depositAmount" placeholder="Enter amount" />
+    <label>TRXID:</label>
+    <input type="text" id="depositTrxid" placeholder="Enter TRXID" />
+    <button onclick="confirmDeposit()">Confirm</button>
+  </div>
+</div>
+
+<!-- Withdraw Modal -->
+<div id="withdrawModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('withdrawModal')">&times;</span>
+    <div class="modal-header">
+      <img src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png">
+      <span>Withdraw</span>
+    </div>
+    <label>Amount:</label>
+    <input type="number" id="withdrawAmount" placeholder="Enter amount" />
+    <label>bKash Number:</label>
+    <input type="text" id="withdrawNumber" placeholder="Enter your number" />
+    <button onclick="confirmWithdraw()">Confirm</button>
+  </div>
+</div>
+
 <script>
+// ---------- Slot Symbols ----------
 const symbols = [
   `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic1.jpg'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/joyapic2.png'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/condom1.png'>`,
   `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/confom2.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/condom3.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/1756997305828.Screenshot_20250904-204533.png'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Messenger_creation_6E151551-F15E-40BF-AE39-0793E0583A91.jpeg'>`,
-  `<img src='https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Picsart_25-09-17_15-51-29-549.png'>`
+  `<img src='https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/condom3.png'>`
 ];
 
-const reels = [document.getElementById("r0"),document.getElementById("r1"),document.getElementById("r2")];
-const balanceEl = document.getElementById("balance");
-const betInput = document.getElementById("bet");
-const spinBtn = document.getElementById("spinBtn");
-const maxBtn = document.getElementById("maxBtn");
-const resetBtn = document.getElementById("resetBtn");
-const msgEl = document.getElementById("msg");
-const amountInput = document.getElementById("amount");
-const depositBtn = document.getElementById("depositBtn");
-const withdrawBtn = document.getElementById("withdrawBtn");
-const totalSpinsEl = document.getElementById("totalSpins");
-const totalWinEl = document.getElementById("totalWin");
-const totalLoseEl = document.getElementById("totalLose");
+const reels=[document.getElementById("r0"),document.getElementById("r1"),document.getElementById("r2")];
+const balanceEl=document.getElementById("balance");
+const betInput=document.getElementById("bet");
+const spinBtn=document.getElementById("spinBtn");
+const maxBtn=document.getElementById("maxBtn");
+const resetBtn=document.getElementById("resetBtn");
+const msgEl=document.getElementById("msg");
+const totalSpinsEl=document.getElementById("totalSpins");
+const totalWinEl=document.getElementById("totalWin");
+const totalLoseEl=document.getElementById("totalLose");
 
-let balance = 1000, spinning = false;
-let totalSpins = 0, totalWin = 0, totalLose = 0;
+let balance=1000,spinning=false;
+let totalSpins=0,totalWin=0,totalLose=0;
 
-const spinSound = new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/spin%20sound.mp3");
-spinSound.volume = 0.5;
-const winSound = new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"); winSound.volume=0.6;
-const loseSound = new Audio("https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"); loseSound.volume=0.6;
-const depositSound = new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Deposit%20.mp3");
-const withdrawSound = new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/withdraw%20.mp3");
+// ---------- Sounds ----------
+const spinSound=new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/spin%20sound.mp3");
+spinSound.volume=0.5;
+const winSound=new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
+const loseSound=new Audio("https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg");
+const depositSound=new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/Deposit%20.mp3");
+const withdrawSound=new Audio("https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/withdraw%20.mp3");
+const errorSound=new Audio("https://raw.githubusercontent.com/emamulk63-design/slot-machine-game/main/bokacuda.mp3");
 
-function updateUI(){ 
-  balanceEl.textContent = balance; 
-  spinBtn.disabled = spinning || Number(betInput.value)<=0 || Number(betInput.value)>balance;
-}
-
+// ---------- Functions ----------
+function updateUI(){ balanceEl.textContent=balance; spinBtn.disabled=spinning||Number(betInput.value)<=0||Number(betInput.value)>balance; }
 function randomIndex(){ return Math.floor(Math.random()*symbols.length); }
-
-function evaluate(result, bet){
-  if(result[0]===result[1] && result[1]===result[2]) return bet*10;
-  if(result[0]===result[1] || result[1]===result[2] || result[0]===result[2]) return bet*2;
-  return 0;
-}
+function evaluate(result,bet){ if(result[0]===result[1]&&result[1]===result[2])return bet*10; if(result[0]===result[1]||result[1]===result[2]||result[0]===result[2])return bet*2; return 0; }
 
 function spin(){
-  if(spinning) return;
-  let bet = Math.max(Number(betInput.value)||1,1);
+  if(spinning)return;
+  let bet=Math.max(Number(betInput.value)||1,1);
   if(bet>balance){ msgEl.textContent="❌ সঠিক বাজি দিন"; return; }
-
   spinning=true; updateUI(); msgEl.textContent="স্পিন হচ্ছে..."; balance-=bet; updateUI();
-  totalSpins++; totalSpinsEl.textContent = totalSpins;
-
-  spinSound.currentTime = 0; spinSound.play();
+  totalSpins++; totalSpinsEl.textContent=totalSpins;
+  spinSound.currentTime=0; spinSound.play();
   const final=[randomIndex(),randomIndex(),randomIndex()];
   reels.forEach(r=>r.classList.remove("win"));
-
-  let i=0, total=50;
+  let i=0,total=50;
   let interval=setInterval(()=>{
-    reels.forEach(r=>{ r.innerHTML = symbols[Math.floor(Math.random()*symbols.length)]; });
+    reels.forEach(r=>{ r.innerHTML=symbols[Math.floor(Math.random()*symbols.length)]; });
     i++;
     if(i>total){
       clearInterval(interval);
       reels.forEach((r,idx)=>r.innerHTML=symbols[final[idx]]);
-      spinSound.pause(); spinSound.currentTime = 0;
-      const payout = evaluate([symbols[final[0]],symbols[final[1]],symbols[final[2]]],bet);
-      if(payout>0){ 
-        balance+=payout; totalWin+=payout;
-        msgEl.innerHTML = `<span style="background:linear-gradient(to right,#00f0ff,#00bfff,#0077ff);-webkit-background-clip:text;color:transparent;">🎉 জিতেছেন ${payout}!</span>`;
-        winSound.play(); reels.forEach(r=>r.classList.add("win")); 
-      } else { 
-        totalLose+=bet;
-        msgEl.textContent="😞 হেরে গেলেন"; 
-        loseSound.play(); 
-      }
-      totalWinEl.textContent = totalWin;
-      totalLoseEl.textContent = totalLose;
-      spinning=false; updateUI();
+      spinSound.pause(); spinSound.currentTime=0;
+      const payout=evaluate([symbols[final[0]],symbols[final[1]],symbols[final[2]]],bet);
+      if(payout>0){ balance+=payout; totalWin+=payout; msgEl.innerHTML=`🎉 জিতেছেন ${payout}!`; winSound.play(); reels.forEach(r=>r.classList.add("win")); }
+      else{ totalLose+=bet; msgEl.textContent="😞 হেরে গেলেন"; loseSound.play(); }
+      totalWinEl.textContent=totalWin; totalLoseEl.textContent=totalLose; spinning=false; updateUI();
     }
   },80);
 }
 
 spinBtn.onclick=spin;
 maxBtn.onclick=()=>{ betInput.value=balance; updateUI(); };
-resetBtn.onclick=()=>{
-  balance=1000; betInput.value=20; msgEl.textContent="🔄 রিসেট হলো"; 
-  totalSpins=0; totalWin=0; totalLose=0;
-  totalSpinsEl.textContent=totalSpins; totalWinEl.textContent=totalWin; totalLoseEl.textContent=totalLose;
-  reels.forEach(r=>r.innerHTML=""); updateUI();
+resetBtn.onclick=()=>{ balance=1000; betInput.value=20; msgEl.textContent="🔄 রিসেট হলো"; totalSpins=0; totalWin=0; totalLose=0; totalSpinsEl.textContent=totalSpins; totalWinEl.textContent=totalWin; totalLoseEl.textContent=totalLose; reels.forEach(r=>r.innerHTML=""); updateUI(); };
+
+// ---------- Deposit ----------
+document.getElementById("depositBtn").onclick=()=>openModal('depositModal');
+function confirmDeposit(){
+  let amt=Number(document.getElementById("depositAmount").value)||0;
+  let trx=document.getElementById("depositTrxid").value.trim();
+  if(amt<=0||!trx){ alert("❌ Amount এবং TRXID দিন"); return; }
+  balance+=amt; msgEl.textContent=`✅ ${amt} টাকা Deposit হয়েছে (TRXID: ${trx})`; depositSound.play(); updateUI(); closeModal('depositModal');
 }
 
-depositBtn.onclick=()=>{
-  let amt=Number(amountInput.value)||0;
-  if(amt<=0){ msgEl.textContent="❌ সঠিক পরিমাণ দিন"; return; }
-  balance+=amt; 
-  msgEl.innerHTML = `<img src="https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/IMG_20251002_011530_131.png?raw=true" class="bank-img"> 💵 ${amt} টাকা Deposit হয়েছে`; 
-  depositSound.play();
-  updateUI(); amountInput.value="";
+// ---------- Withdraw ----------
+document.getElementById("withdrawBtn").onclick=()=>openModal('withdrawModal');
+function confirmWithdraw(){
+  let amt=Number(document.getElementById("withdrawAmount").value)||0;
+  let num=document.getElementById("withdrawNumber").value.trim();
+  if(amt<=0||!num){ alert("❌ Amount এবং Number দিন"); return; }
+  if(amt>balance){ msgEl.textContent="❌ ব্যালেন্স কম"; errorSound.play(); return; }
+  balance-=amt; msgEl.textContent=`🏧 ${amt} টাকা Withdraw হয়েছে (${num})`; withdrawSound.play(); updateUI(); closeModal('withdrawModal');
 }
-withdrawBtn.onclick=()=>{
-  let amt=Number(amountInput.value)||0;
-  if(amt<=0){ msgEl.textContent="❌ সঠিক পরিমাণ দিন"; return; }
-  if(amt>balance){ msgEl.textContent="❌ ব্যালেন্স কম"; return; }
-  balance-=amt; 
-  msgEl.innerHTML = `<img src="https://raw.githubusercontent.com/emamulk63-design/-Calculator-/main/IMG_20251002_011530_131.png?raw=true" class="bank-img"> 🏧 ${amt} টাকা Withdraw হয়েছে`; 
-  withdrawSound.play();
-  updateUI(); amountInput.value="";
+
+// ---------- Modal Functions ----------
+function openModal(id){ 
+  let modal=document.getElementById(id);
+  modal.style.display="flex"; 
+  setTimeout(()=>modal.classList.add("show"),10);
+}
+function closeModal(id){ 
+  let modal=document.getElementById(id);
+  modal.classList.remove("show");
+  setTimeout(()=>{ modal.style.display="none"; },500);
+}
+window.onclick=function(e){ if(e.target.classList.contains("modal")) closeModal(e.target.id); }
+
+// Copy bKash Number
+function copyBkash(){ 
+  let number=document.getElementById("bkashNumber").textContent; 
+  navigator.clipboard.writeText(number).then(()=>{ alert("✅ bKash Number Copied: "+number); });
 }
 
 updateUI();
